@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CalendarPage from "./components/CalendarPage";
 import LoginForm from "./pages/LoginForm";
+import CalendarPage from "./pages/CalendarPage";
 
 function App() {
 	return (

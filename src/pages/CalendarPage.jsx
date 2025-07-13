@@ -6,9 +6,9 @@ import "../index.css";
 import ThemeToggle from "../components/ThemeToggle";
 import AppointmentModal from "../components/AppointmentModal";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import YearPickerDropdown from "./YearPickerDropdown";
+import YearPickerDropdown from "../components/YearPickerDropdown";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
+import Button from "../components/Button";
 
 const CalendarPage = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());

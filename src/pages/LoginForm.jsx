@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import ThemeToggle from "../components/ThemeToggle";
 
 const validEmail = "staff@clinic.com";
-const validPassword = "12345";
+const validPassword = "123456";
 
 const LoginForm = () => {
 	const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ const LoginForm = () => {
 
 		if (!password) {
 			newErrors.password = "Password is required.";
-		} else if (password.length < 5) {
+		} else if (password.length < 6) {
 			newErrors.password = "Minimum 6 characters required.";
 		}
 
