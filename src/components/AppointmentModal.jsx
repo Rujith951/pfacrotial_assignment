@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import Input from "./Input";
-
-const doctorsList = [
-	"Dr. Smith",
-	"Dr. Johnson",
-	"Dr. Patel",
-	"Dr. Lee",
-	"Dr. Brown",
-	"Dr. Rujith",
-];
+import { doctorsList } from "../constants/doctors";
 
 const AppointmentModal = ({ date, onClose, onSave, editingData }) => {
 	const [patientName, setPatientName] = useState("");

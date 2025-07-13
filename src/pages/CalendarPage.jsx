@@ -9,22 +9,18 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import YearPickerDropdown from "../components/YearPickerDropdown";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import { dummyAppointments } from "../constants/dummyData";
 
 const CalendarPage = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
 
 	const [appointments, setAppointments] = useState(() => {
-		const stored = localStorage.getItem("appointments");
-
 		try {
-			const parsed = JSON.parse(stored) || {};
-			const merged = { ...dummyAppointments, ...parsed };
-			localStorage.setItem("appointments", JSON.stringify(merged));
-			return merged;
+			const stored = localStorage.getItem("appointments");
+			const parsed = stored ? JSON.parse(stored) : {};
+			return parsed;
 		} catch (e) {
-			localStorage.setItem("appointments", JSON.stringify(dummyAppointments));
-			return dummyAppointments;
+			console.error("Failed to parse appointments from localStorage", e);
+			return {};
 		}
 	});
 
