@@ -104,6 +104,21 @@ const CalendarPage = () => {
 		setShowModal(true);
 	};
 
+	const handleDelete = (id, dateStr) => {
+		setAppointments(prev => {
+			const dateAppts = prev[dateStr] || [];
+			const updatedAppts = dateAppts.filter(appt => appt.id !== id);
+
+			const updated = { ...prev };
+			if (updatedAppts.length > 0) {
+				updated[dateStr] = updatedAppts;
+			} else {
+				delete updated[dateStr];
+			}
+			return updated;
+		});
+	};
+
 	const monthName = currentMonth.toLocaleString("default", { month: "long" });
 	const year = currentMonth.getFullYear();
 
@@ -191,20 +206,32 @@ const CalendarPage = () => {
 												</button>
 											)}
 										</div>
+
 										{dailyAppointments.map(appt => (
 											<div
 												key={appt.id}
-												className="bg-[#0e7a6c] text-white rounded px-2 py-1 mb-1 text-sm flex justify-between items-center"
+												className="bg-[#0e7a6c] text-white rounded px-2 py-1 mb-1 text-sm flex justify-between items-center gap-2"
 											>
 												<div className="truncate w-48">
 													{appt.time} - {appt.patientName} ({appt.doctorName})
 												</div>
-												<button
-													onClick={() => handleEdit(appt, dateStr)}
-													className="text-xs underline"
-												>
-													Edit
-												</button>
+												<div className="flex gap-2">
+													<button
+														onClick={() => handleEdit(appt, dateStr)}
+														className="text-xs underline"
+													>
+														Edit
+													</button>
+													<button
+														onClick={e => {
+															e.stopPropagation();
+															handleDelete(appt.id, dateStr);
+														}}
+														className="text-white underline text-[10px] ml-2"
+													>
+														Delete
+													</button>
+												</div>
 											</div>
 										))}
 									</div>
@@ -300,9 +327,23 @@ const CalendarPage = () => {
 														<div className="truncate w-36 overflow-hidden text-start">
 															{appt.time} - {appt.patientName}
 														</div>
-														<button className="text-white underline text-[10px] ml-2">
-															Edit
-														</button>
+														<div className="flex gap-2 ml-2">
+															<button
+																onClick={() => handleEdit(appt, dateStr)}
+																className="text-white underline text-[10px]"
+															>
+																Edit
+															</button>
+															<button
+																onClick={e => {
+																	e.stopPropagation();
+																	handleDelete(appt.id, dateStr);
+																}}
+																className="text-white underline text-[10px] ml-2"
+															>
+																Delete
+															</button>
+														</div>
 													</div>
 												))}
 											</div>
