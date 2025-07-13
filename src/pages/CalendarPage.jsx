@@ -181,6 +181,7 @@ const CalendarPage = () => {
 										title="Logout"
 										onClick={() => {
 											localStorage.removeItem("appointments");
+											localStorage.removeItem("isLoggedIn");
 											navigate("/login");
 										}}
 									/>
@@ -305,6 +306,7 @@ const CalendarPage = () => {
 											title="Logout"
 											onClick={() => {
 												localStorage.removeItem("appointments");
+												localStorage.removeItem("isLoggedIn");
 												navigate("/login");
 											}}
 										/>
