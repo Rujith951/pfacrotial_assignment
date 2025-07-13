@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -32,10 +32,19 @@ const LoginForm = () => {
 		return !newErrors.email && !newErrors.password;
 	};
 
+	useEffect(() => {
+		const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+		if (isLoggedIn) {
+			navigate("/");
+		}
+	}, []);
+
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (validate()) {
 			if (email === validEmail && password === validPassword) {
+				localStorage.setItem("isLoggedIn", "true");
 				navigate("/", { replace: true });
 			} else {
 				setErrors(prev => ({

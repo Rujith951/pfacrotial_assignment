@@ -51,6 +51,14 @@ const CalendarPage = () => {
 		setShowModal(true);
 	};
 
+	useEffect(() => {
+		const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+		if (!isLoggedIn) {
+			navigate("/login");
+		}
+	}, []);
+
 	const handlePrevMonth = () => {
 		const newDate = new Date(currentMonth);
 		newDate.setMonth(newDate.getMonth() - 1);
