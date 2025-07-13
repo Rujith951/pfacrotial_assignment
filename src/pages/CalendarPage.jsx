@@ -212,8 +212,8 @@ const CalendarPage = () => {
 												key={appt.id}
 												className="bg-[#0e7a6c] text-white rounded px-2 py-1 mb-1 text-sm flex justify-between items-center gap-2"
 											>
-												<div className="truncate w-48">
-													{appt.time} - {appt.patientName} ({appt.doctorName})
+												<div className="truncate w-[80%]">
+													{appt.time} - {appt.patientName}
 												</div>
 												<div className="flex gap-2">
 													<button
@@ -227,7 +227,7 @@ const CalendarPage = () => {
 															e.stopPropagation();
 															handleDelete(appt.id, dateStr);
 														}}
-														className="text-white underline text-[10px] ml-2"
+														className="text-[#f00] underline text-[10px] ml-2"
 													>
 														Delete
 													</button>
@@ -324,13 +324,13 @@ const CalendarPage = () => {
 														className="bg-[#0e7a6c] gap-1 text-white rounded text-xs px-1 py-0.5 flex justify-between items-center"
 														title={`${appt.time} - ${appt.patientName}`}
 													>
-														<div className="truncate w-36 overflow-hidden text-start">
+														<div className="truncate w-36 overflow-hidden text-start text-[10px]">
 															{appt.time} - {appt.patientName}
 														</div>
 														<div className="flex gap-2 ml-2">
 															<button
 																onClick={() => handleEdit(appt, dateStr)}
-																className="text-white underline text-[10px]"
+																className="text-white underline text-[7px]"
 															>
 																Edit
 															</button>
@@ -339,7 +339,7 @@ const CalendarPage = () => {
 																	e.stopPropagation();
 																	handleDelete(appt.id, dateStr);
 																}}
-																className="text-white underline text-[10px] ml-2"
+																className="text-[#de6e6e] underline text-[7px] ml-2"
 															>
 																Delete
 															</button>
