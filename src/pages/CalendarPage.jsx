@@ -145,16 +145,16 @@ const CalendarPage = () => {
 				<div className="flex-1 overflow-hidden h-full">
 					{isMobile ? (
 						<div className="p-4 overflow-y-auto h-full relative">
-							<div className="w-full min-w-0 sm:min-w-[214px] sm:max-w-[214px] fixed top-0 left-0 ring-0 flex items-center justify-between p-3 bg-white dark:bg-black z-10">
-								<div className="flex items-center justify-between min-w-[214px] max-w-[214px]">
+							<div className="w-full fixed top-0 left-0 z-10 bg-white dark:bg-black p-3 ring-0 flex justify-between items-center">
+								<div className="flex items-center gap-2 min-w-[214px] max-w-[214px]">
 									<button
 										onClick={handlePrevMonth}
 										className="text-[#0e7a6c] hover:text-[#138d7c]"
 									>
-										<FaChevronLeft className="text-[#0e7a6c] hover:text-[#138d7c] transition-colors w-5 h-5" />
+										<FaChevronLeft className="w-5 h-5" />
 									</button>
 									<h2
-										className="text-lg font-semibold"
+										className="text-lg font-semibold cursor-pointer"
 										onClick={() => setShowYearPicker(prev => !prev)}
 									>
 										{monthName} {year}
@@ -163,7 +163,7 @@ const CalendarPage = () => {
 										onClick={handleNextMonth}
 										className="text-[#0e7a6c] hover:text-[#138d7c]"
 									>
-										<FaChevronRight className="text-[#0e7a6c] hover:text-[#138d7c] transition-colors w-5 h-5" />
+										<FaChevronRight className="w-5 h-5" />
 									</button>
 
 									{showYearPicker && (
@@ -175,18 +175,22 @@ const CalendarPage = () => {
 										/>
 									)}
 								</div>
-								<ThemeToggle />
-								<div>
-									<Button
-										title="Logout"
-										onClick={() => {
-											localStorage.removeItem("appointments");
-											localStorage.removeItem("isLoggedIn");
-											navigate("/login");
-										}}
-									/>
+
+								<div className="w-fit flex items-center gap-2">
+									<ThemeToggle />
+									<div className="flex justify-end min-w-fit">
+										<Button
+											title="Logout"
+											onClick={() => {
+												localStorage.removeItem("appointments");
+												localStorage.removeItem("isLoggedIn");
+												navigate("/login");
+											}}
+										/>
+									</div>
 								</div>
 							</div>
+
 							{datesInMonth.map((date, index) => {
 								const dateStr = date.toDateString();
 								const dailyAppointments = appointments[dateStr] || [];
