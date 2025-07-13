@@ -9,12 +9,23 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import YearPickerDropdown from "../components/YearPickerDropdown";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import { dummyAppointments } from "../constants/dummyData";
 
 const CalendarPage = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
+
 	const [appointments, setAppointments] = useState(() => {
 		const stored = localStorage.getItem("appointments");
-		return stored ? JSON.parse(stored) : {};
+
+		try {
+			const parsed = JSON.parse(stored) || {};
+			const merged = { ...dummyAppointments, ...parsed };
+			localStorage.setItem("appointments", JSON.stringify(merged));
+			return merged;
+		} catch (e) {
+			localStorage.setItem("appointments", JSON.stringify(dummyAppointments));
+			return dummyAppointments;
+		}
 	});
 
 	const [showModal, setShowModal] = useState(false);
