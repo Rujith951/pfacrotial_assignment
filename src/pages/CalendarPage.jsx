@@ -36,10 +36,30 @@ const CalendarPage = () => {
 		localStorage.setItem("appointments", JSON.stringify(appointments));
 	}, [appointments]);
 
+	// const handleDateClick = date => {
+	// 	const today = new Date();
+	// 	today.setHours(0, 0, 0, 0);
+
+	// 	if (date < today) return;
+
+	// 	setSelectedDate(date);
+	// 	setEditingAppointment(null);
+	// 	setShowModal(true);
+	// };
+
 	const handleDateClick = date => {
 		const today = new Date();
 		today.setHours(0, 0, 0, 0);
 
+		// Prevent clicking days not from the currently visible month
+		if (
+			date.getMonth() !== currentMonth.getMonth() ||
+			date.getFullYear() !== currentMonth.getFullYear()
+		) {
+			return;
+		}
+
+		// Prevent clicking past dates
 		if (date < today) return;
 
 		setSelectedDate(date);
@@ -55,10 +75,38 @@ const CalendarPage = () => {
 		}
 	}, []);
 
+	// const handlePrevMonth = () => {
+	// 	const newDate = new Date(currentMonth);
+	// 	newDate.setMonth(newDate.getMonth() - 1);
+	// 	setCurrentMonth(newDate);
+	// };
+
 	const handlePrevMonth = () => {
+		const today = new Date();
+		const currentYear = currentMonth.getFullYear();
+		const currentMonthIndex = currentMonth.getMonth();
+
+		const isCurrentMonthBeforeToday =
+			currentYear < today.getFullYear() ||
+			(currentYear === today.getFullYear() &&
+				currentMonthIndex <= today.getMonth());
+
+		if (isCurrentMonthBeforeToday) {
+			// Prevent navigating to past months
+			return;
+		}
+
 		const newDate = new Date(currentMonth);
-		newDate.setMonth(newDate.getMonth() - 1);
-		setCurrentMonth(newDate);
+		newDate.setMonth(currentMonth.getMonth() - 1);
+
+		// Only update if newDate is still in or after current month
+		if (
+			newDate.getFullYear() > today.getFullYear() ||
+			(newDate.getFullYear() === today.getFullYear() &&
+				newDate.getMonth() >= today.getMonth())
+		) {
+			setCurrentMonth(newDate);
+		}
 	};
 
 	const handleNextMonth = () => {
@@ -317,6 +365,21 @@ const CalendarPage = () => {
 								<Calendar
 									className="rounded-lg shadow-lg min-w-full overflow-hidden bg-white dark:bg-slate-700 text-black dark:text-white"
 									onClickDay={handleDateClick}
+									tileClassName={({ date }) => {
+										const today = new Date();
+										today.setHours(0, 0, 0, 0);
+
+										if (date < today) {
+											return "past-day";
+										}
+										if (date.toDateString() === today.toDateString()) {
+											return "today";
+										}
+										if (date > today) {
+											return "future-day";
+										}
+										return null;
+									}}
 									showNavigation={false}
 									value={selectedDate}
 									activeStartDate={currentMonth}

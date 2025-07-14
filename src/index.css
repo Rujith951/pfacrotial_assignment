@@ -75,6 +75,11 @@
 	border-bottom: 1px solid #ccc !important;
 }
 
+.past-day {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
 .react-calendar__tile abbr {
 	margin: 0 auto;
 }
