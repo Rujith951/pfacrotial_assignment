@@ -153,7 +153,7 @@ const CalendarPage = () => {
 	const handleEdit = (appt, date) => {
 		setSelectedDate(new Date(date));
 		setEditingAppointment(appt);
-		setShowModal(true);
+		requestAnimationFrame(() => setShowModal(true));
 	};
 
 	const handleDelete = (id, dateStr) => {
@@ -274,11 +274,15 @@ const CalendarPage = () => {
 												</div>
 												<div className="flex gap-2">
 													<button
-														onClick={() => handleEdit(appt, dateStr)}
-														className="text-xs underline"
+														onClick={e => {
+															e.stopPropagation();
+															handleEdit(appt, dateStr);
+														}}
+														className="text-white underline text-[7px]"
 													>
 														Edit
 													</button>
+
 													<button
 														onClick={e => {
 															e.stopPropagation();
@@ -402,11 +406,15 @@ const CalendarPage = () => {
 														</div>
 														<div className="flex gap-2 ml-2">
 															<button
-																onClick={() => handleEdit(appt, dateStr)}
+																onClick={e => {
+																	e.stopPropagation();
+																	handleEdit(appt, dateStr);
+																}}
 																className="text-white underline text-[7px]"
 															>
 																Edit
 															</button>
+
 															<button
 																onClick={e => {
 																	e.stopPropagation();
